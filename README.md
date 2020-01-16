@@ -12,7 +12,7 @@ Adds to the python dict by:
 from dict_object import DictObject
 
 ## Initialise
-```
+```python
 dob = DictObject({'foo': 1, 'bar': 2})
 ```
 
@@ -22,7 +22,7 @@ dob = DictObject({'foo': 1, 'bar': 2})
 - warn_key_not_found (bool): Optional prints a warning if a key is not found and default_to is returned. Defaults to False.
 
 # Example usage
-```
+```python
 dob = DictObject({'foo': 1, 'bar': 2})
 # default_to is returned if the key is not found
 # Probably more normal would be to set default_to to None
@@ -38,7 +38,7 @@ dob = DictObject({'foo': 1, 'bar': 2})
 
 ```
 ### Return default value if key not found
-```
+```python
 >>> dob = DictObject({'foo': 1, 'bar': 2}, default_to='Key Not Set')
 >>> dob.baz
 'Key Not Set'
@@ -56,8 +56,7 @@ dob = DictObject({'foo': 1, 'bar': 2})
 >>> dob.bootle
 'Key not set'
 ```
-## Nesting
----------
+### Nesting
 (See later for converting nested dictionaries)
 
 ```
@@ -88,8 +87,7 @@ DictObject({
         })
     })
 ```
-## Optional warning
-----------------
+### Optional: warn if key not found but do not stop flow
 Warn if a key is not found and default_to is being returned.
 Particularly useful if default_to is set to _None_
 ```
@@ -102,8 +100,7 @@ UserWarning: Key not_a_key not found in DictTuple. Returning None
 >>> dob.warn_key_not_found() # turns warnings on
 >>> dob.warn_key_not_found(False) # turns warnings off
 ```
-## Converting to / from a dict
-----------------------------
+### Converting to / from a dict
 
 Convert any nested dictionaries to DictObject
 ```
@@ -124,90 +121,93 @@ DictObject({
             }
       }
   })
-dob.convert_dicts(recursive=True)
-dob
-# DictObject({
-#   'foo': 1,
-#   'bar': 2,
-#   'zonk': DictObject{
-#       'a': 'zonk',
-#       'b': 'zonky',
-#       'c': DictObject{
-#           'd': 3,
-#           'e': 4}
-#       }
-#   })
-dob.zonk.c.d
-# 3
+>>> dob.convert_dicts(recursive=True)
+>>> dob
+DictObject({
+  'foo': 1,
+  'bar': 2,
+  'zonk': DictObject{
+      'a': 'zonk',
+      'b': 'zonky',
+      'c': DictObject{
+          'd': 3,
+          'e': 4}
+      }
+  })
+>>> dob.zonk.c.d
+3
 
 # Convert back to a dict, including any nested objects
-dob.todict() # Defaults to recursive
-# {'foo': 1, 'bar': 2, 'zonk': {'a': 'zonk', 'b': 'zonky' 'c': {'d': 3, 'e': 4}}}
+>>> dob.todict() # Defaults to recursive
+{'foo': 1, 'bar': 2, 'zonk': {'a': 'zonk', 'b': 'zonky' 'c': {'d': 3, 'e': 4}}}
 
-dob.todict(False) # Nested DictObjects not converted to dict
-# {
-#   'foo': 1,
-#   'bar': 2,
-#   'zonk': DictObject{
-#       'a': 'zonk',
-#       'b': 'zonky',
-#       'c': DictObject{
-#           'd': 3,
-#           'e': 4}
-#       }
-#   }
+>>> dob.todict(False) # Nested DictObjects not converted to dict
+{
+  'foo': 1,
+  'bar': 2,
+  'zonk': DictObject{
+      'a': 'zonk',
+      'b': 'zonky',
+      'c': DictObject{
+          'd': 3,
+          'e': 4}
+      }
+  }
 ```
 # All standard python dict functions work
-# --------------------------------------
+```python
+>>> dob = DictObject({'foo': 1, 'bar': 2}, default_to='Not Set')
+>>> dob.update({'bar': 'Two', 'baz': 3})
+>>> dob
+DictObject{'foo': 1, 'bar': 'Two', 'baz': 3}
+>>> dob['bar'] = 'II'
+>>> dob
+DictObject{'foo': 1, 'bar': 'II', 'baz': 3}
 
-dob = DictObject({'foo': 1, 'bar': 2}, default_to='Not Set')
-dob.update({'bar': 'Two', 'baz': 3})
-dob
-# DictObject{'foo': 1, 'bar': 'Two', 'baz': 3}
-dob['bar'] = 'II'
-dob
-# DictObject{'foo': 1, 'bar': 'II', 'baz': 3}
+>>> dob.keys()
+dict_keys(['foo', 'bar', 'baz'])
 
-dob.keys()
-# dict_keys(['foo', 'bar', 'baz'])
-for key in dob:
-print(f'{key} = {dob[key]}')
-# foo = 1
-# bar = II
-# baz = 3
+>>> for key in dob:
+        print(f'{key} = {dob[key]}')
+foo = 1
+bar = II
+baz = 3
 
-'bazz' in dob
-# False
+>>> 'bazz' in dob
+False
 
-dob = DictObject({'foo': 1, 'bar': 2}) # default_to is not set
-dob.baz
+>>> dob = DictObject({'foo': 1, 'bar': 2}) # default_to is not set
+>>> dob.baz
 # Raises KeyError
 
-dob['baz']
+>>> dob['baz']
 # Raises KeyError
 
-dob.get('baz', 3)
-# 3
+>>> dob.get('baz', 3)
+3
+```
+### Copying
 
-# Copying
-# -------
-
-# Deepcopy
-from copy import deepcopy
-dob = DictObject({'foo': 1, 'bar': 2}, warn_key_not_found=True, default_to=None)
-dob.baz = {'a': 1, 'b': {'c': 3, 'd': 4}}
-dob.convert_dicts()
-dob
-# => DictObject{'foo': 1, 'bar': 2, 'baz': DictObject{'a': 1, 'b': {'c': 3, 'd': 4}}}
-dob2 = deepcopy(dob)
-dob.baz.a = 3
-dob
-# => DictObject{'foo': 1, 'bar': 2, 'baz': DictObject{'a': 3, 'b': {'c': 3, 'd': 4}}}
+#### Deepcopy
+Deep copies create new copies of any nested objects.
+```
+>>> from copy import deepcopy
+>>> dob = DictObject({'foo': 1, 'bar': 2}, warn_key_not_found=True, default_to=None)
+>>> dob.baz = {'a': 1, 'b': {'c': 3, 'd': 4}}
+>>> dob.convert_dicts()
+>>> dob
+ DictObject{'foo': 1, 'bar': 2, 'baz': DictObject{'a': 1, 'b': {'c': 3, 'd': 4}}}
+>>> dob2 = deepcopy(dob)
+>>> dob.baz.a = 3
+>>> dob
+DictObject{'foo': 1, 'bar': 2, 'baz': DictObject{'a': 3, 'b': {'c': 3, 'd': 4}}}
 dob2
-# => DictObject{'foo': 1, 'bar': 2, 'baz': DictObject{'a': 1, 'b': {'c': 3, 'd': 4}}}
-
-# Shallow copy
-# In the example above,
-# if dob2 is created with using
-# dob2 = dob.copy()
-# setting dob.baz.a = 3 would also change dob2.baz.a to 3
+DictObject{'foo': 1, 'bar': 2, 'baz': DictObject{'a': 1, 'b': {'c': 3, 'd': 4}}}
+```
+#### Shallow copy
+In the example above,
+if dob2 is created with using
+```
+>>> dob2 = dob.copy()
+```
+setting dob.baz.a = 3 would also change dob2.baz.a to 3
