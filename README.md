@@ -68,6 +68,7 @@ dob = DictObject({'foo': 1, 'bar': 2})
 (See later for converting nested dictionaries)
 
 ```python
+dob = DictObject({'foo': 1, 'bar': 2})
 dob.baz = DictObject({'a': 3, 'b': 4})
 dob
 # Note: Display indenting added for clarity
@@ -83,6 +84,7 @@ DictObject({
 >>> dob.baz.a
 3
 
+# Set new value within nested tree
 >>> dob.baz.c = 5
 >>> dob
 DictObject({
@@ -113,12 +115,9 @@ UserWarning: Key not_a_key not found in DictTuple. Returning None
 Convert any nested dictionaries to DictObject
 ```python
 
->>> DictObject({'foo': 1, 'bar': 2, 'baz': {'c': 3, 'd': 4}, convert_nested=True)
-DictObject({'foo': 1, 'bar': 2, 'baz': DictObject{'c': 3, 'd': 4}})
-
->>> dob.zonk = {'a': 'zonk', 'b': 'zonky'}
+>>> dob = DictObject({'foo': 1, 'bar': 2, 'baz': {'c': 3, 'd': 4}, convert_nested=True)
 >>> dob
-DictObject({'foo': 1, 'bar': 2, 'zonk': {'a': 'zonk', 'b': 'zonky'}})
+DictObject({'foo': 1, 'bar': 2, 'baz': DictObject{'c': 3, 'd': 4}})
 
 # Convert nested objects after initialisation
 >>> dob = DictObject({{'foo': 1, 'bar': 2, 'zonk': {'a': 'zonk', 'b': 'zonky' 'c': {'d': 3, 'e': 4}}})
