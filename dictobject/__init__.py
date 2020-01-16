@@ -1,1 +1,1 @@
-
+from dictobject import DictObject
