@@ -1,12 +1,15 @@
 # dictobject
-A python dictionary that is accessible (like an object) through attributes and allows default value and warnings
-Adds to the python dict by:
+There are a number of excellent packages that extend the python dictionary to all object-like access (e.g. dict.key).
+
+This aims to add some additional features to those projects by creating a python dictionary that is accessible (like an object) through attributes and allows default value and warnings
+
+dictobject adds to the python dict by:
 - Allowing access through the dict.key notation
-- New items may be set by dict.key = value notation
+- Setting new items with dict.key = value notation
 - Allowing a default value to be set, which is returned if the key is not in the dictionary
-- Optionally warn if the key is not found and default value is being returned
-- Recursively change any nested dicts to DictObjects and back again
-- Deepcopy implemented
+- Optionally warning if the key is not found and default value is being returned
+- Recursively changing any nested dicts to DictObjects and back again
+Additionally, deepcopy has been implemented
 
 ## Installation
 ```
