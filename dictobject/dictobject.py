@@ -30,6 +30,7 @@ class DictObject(dict):
             default_to is returned. Defaults to False.
 
     Example usage:
+        from dictobject import DictObject
         dob = DictObject({'foo': 1, 'bar': 2}, default_to='Not Set')
         # default_to returned if the key is not found
 
