@@ -12,7 +12,7 @@ Adds to the python dict by:
 ```
 git clone https://github.com/pdrharris/dictobject.git
 cd dictobject
-python setup.py
+python setup.py install
 ```
 
 ## Import
