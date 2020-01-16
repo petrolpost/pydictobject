@@ -59,7 +59,7 @@ dob = DictObject({'foo': 1, 'bar': 2})
 ### Nesting
 (See later for converting nested dictionaries)
 
-```
+```python
 dob.baz = DictObject({'a': 3, 'b': 4})
 dob
 # Note: Display indenting added for clarity
@@ -90,7 +90,7 @@ DictObject({
 ### Optional: warn if key not found but do not stop flow
 Warn if a key is not found and default_to is being returned.
 Particularly useful if default_to is set to _None_
-```
+```python
 >>> dob = DictObject({'foo': 1, 'bar': 2}, default_to=None, warn_key_not_found=True)
 >>> dob.not_a_key
 UserWarning: Key not_a_key not found in DictTuple. Returning None
@@ -103,12 +103,17 @@ UserWarning: Key not_a_key not found in DictTuple. Returning None
 ### Converting to / from a dict
 
 Convert any nested dictionaries to DictObject
-```
+```python
+
+>>> DictObject({'foo': 1, 'bar': 2, 'baz': {'c': 3, 'd': 4}, convert_nested=True)
+DictObject({'foo': 1, 'bar': 2, 'baz': DictObject{'c': 3, 'd': 4}})
+
 >>> dob.zonk = {'a': 'zonk', 'b': 'zonky'}
 >>> dob
 DictObject({'foo': 1, 'bar': 2, 'zonk': {'a': 'zonk', 'b': 'zonky'}})
 
->>> dob.zonk.c = {'d': 3, 'e': 4}
+# Convert nested objects after initialisation
+>>> dob = DictObject({{'foo': 1, 'bar': 2, 'zonk': {'a': 'zonk', 'b': 'zonky' 'c': {'d': 3, 'e': 4}}})
 dob
 DictObject({
   'foo': 1,
@@ -134,6 +139,8 @@ DictObject({
           'e': 4}
       }
   })
+
+# Access nested members
 >>> dob.zonk.c.d
 3
 
@@ -190,7 +197,7 @@ False
 
 #### Deepcopy
 Deep copies create new copies of any nested objects.
-```
+```python
 >>> from copy import deepcopy
 >>> dob = DictObject({'foo': 1, 'bar': 2}, warn_key_not_found=True, default_to=None)
 >>> dob.baz = {'a': 1, 'b': {'c': 3, 'd': 4}}
@@ -207,7 +214,7 @@ DictObject{'foo': 1, 'bar': 2, 'baz': DictObject{'a': 1, 'b': {'c': 3, 'd': 4}}}
 #### Shallow copy
 In the example above,
 if dob2 is created with using
-```
+```python
 >>> dob2 = dob.copy()
-```
+```python
 setting dob.baz.a = 3 would also change dob2.baz.a to 3
