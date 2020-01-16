@@ -9,7 +9,8 @@ dictobject adds to the python dict by:
 - Allowing a default value to be set, which is returned if the key is not in the dictionary
 - Optionally warning if the key is not found and default value is being returned
 - Recursively changing any nested dicts to DictObjects and back again
-Additionally, deepcopy has been implemented
+
+Additionally, deepcopy has been implemented to create new copies of any nested DictObjects.
 
 ## Installation
 ```
