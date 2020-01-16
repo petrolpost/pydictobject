@@ -5,6 +5,9 @@ Adds to the python dict by:
 - Option to warn if a default value is being returned
 - Items may be set by dict.key = value notation
 """
+# https://github.com/pdrharris/dictobject
+# Copyright Peter Harris 2020
+# Licence: MIT
 
 from copy import deepcopy
 from warnings import warn
