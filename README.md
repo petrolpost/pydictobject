@@ -17,7 +17,7 @@ python setup.py install
 
 ## Import
 ```python
-from dict_object import DictObject
+from dictobject import DictObject
 ```
 ## Initialise
 ```python
