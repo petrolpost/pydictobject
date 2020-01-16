@@ -9,13 +9,16 @@ Adds to the python dict by:
 - Deepcopy implemented
 
 ## Installation
+```
 git clone https://github.com/pdrharris/dictobject.git
 cd dictobject
 python setup.py
+```
 
 ## Import
+```python
 from dict_object import DictObject
-
+```
 ## Initialise
 ```python
 dob = DictObject({'foo': 1, 'bar': 2})
