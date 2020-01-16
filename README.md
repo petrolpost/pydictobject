@@ -23,7 +23,7 @@ dob = DictObject({'foo': 1, 'bar': 2})
 
 # Example usage
 ```
-dob = DictObject({'foo': 1, 'bar': 2}, default_to='Not Set')
+dob = DictObject({'foo': 1, 'bar': 2})
 # default_to is returned if the key is not found
 # Probably more normal would be to set default_to to None
 
@@ -32,94 +32,98 @@ dob = DictObject({'foo': 1, 'bar': 2}, default_to='Not Set')
 >>> dob['bar']
 2
 
-dob.baz = 3 # Key baz not previously set
-dob.baz
-# 3
+>>> dob.baz = 3 # Set new value with dot notation
+>>> dob.baz
+3
 
 ```
 ### Return default value if key not found
-```dob = DictObject({'foo': 1, 'bar': 2}, default_to='Key Not Set')
-dob.baz
+```
+>>> dob = DictObject({'foo': 1, 'bar': 2}, default_to='Key Not Set')
+>>> dob.baz
 'Key Not Set'
 
-dob.baz = 3
-dob.baz
-# 3
+>>> dob.baz = 3
+>>> dob.baz
+3
 
 # set default_to after instantiation
-dob = DictObject({'foo': 1, 'bar': 2})
-dob.bootle
+>>> dob = DictObject({'foo': 1, 'bar': 2})
+>>> dob.bootle
 # Raises KeyError
-dob.set_default_to['Key not set']
-dob.bootle
-# 'Key not set'
+
+>>> dob.set_default_to['Key not set']
+>>> dob.bootle
+'Key not set'
 ```
 ## Nesting
 ---------
-# (See later for converting nested dictionaries)
+(See later for converting nested dictionaries)
 
+```
 dob.baz = DictObject({'a': 3, 'b': 4})
 dob
 # Note: Display indenting added for clarity
-# DictObject({
-#     'foo': 1,
-#     'bar': 2,
-#     'baz': DictObject({
-#         'a': 3,
-#         'b': 4
-#         })
-#     })
+DictObject({
+    'foo': 1,
+    'bar': 2,
+    'baz': DictObject({
+        'a': 3,
+        'b': 4
+        })
+    })
 
-dob.baz.a
-# 3
+>>> dob.baz.a
+3
 
-dob.baz.c = 5
-dob
-# DictObject({
-#     'foo': 1,
-#     'bar': 2,
-#     'baz': DictObject({
-#         'a': 3,
-#         'b': 4,
-#         'c': 5
-#         })
-#     })
-
-# Optional warning
-# ----------------
-# Warn if a key is not found and default_to is being returned.
-# Particularlyl useful if default_to is set to None
-
-dob.set_default_to(None)
-dob = DictObject({'foo': 1, 'bar': 2}, default_to=None, warn_key_not_found=True)
-dob.not_a_key
-# => UserWarning: Key not_a_key not found in DictTuple. Returning None
+>>> dob.baz.c = 5
+>>> dob
+DictObject({
+    'foo': 1,
+    'bar': 2,
+    'baz': DictObject({
+        'a': 3,
+        'b': 4,
+        'c': 5
+        })
+    })
+```
+## Optional warning
+----------------
+Warn if a key is not found and default_to is being returned.
+Particularly useful if default_to is set to _None_
+```
+>>> dob = DictObject({'foo': 1, 'bar': 2}, default_to=None, warn_key_not_found=True)
+>>> dob.not_a_key
+UserWarning: Key not_a_key not found in DictTuple. Returning None
 # Returns None
 
 # Set turn warnings on or off after instantiation
-dob.warn_key_not_found() # turns warnings on
-dob.warn_key_not_found(False) # turns warnings off
+>>> dob.warn_key_not_found() # turns warnings on
+>>> dob.warn_key_not_found(False) # turns warnings off
+```
+## Converting to / from a dict
+----------------------------
 
-# Converting to / from a dict
-# ----------------------------
+Convert any nested dictionaries to DictObject
+```
+>>> dob.zonk = {'a': 'zonk', 'b': 'zonky'}
+>>> dob
+DictObject({'foo': 1, 'bar': 2, 'zonk': {'a': 'zonk', 'b': 'zonky'}})
 
-# Convert any nested dictionaries to DictObject
-dob.zonk = {'a': 'zonk', 'b': 'zonky'}
+>>> dob.zonk.c = {'d': 3, 'e': 4}
 dob
-# DictObject({'foo': 1, 'bar': 2, 'zonk': {'a': 'zonk', 'b': 'zonky'}})
-dob.zonk.c = {'d': 3, 'e': 4}
-dob
-# DictObject({
-#   'foo': 1,
-#   'bar': 2,
-#   'zonk': {
-#       'a': 'zonk',
-#       'b': 'zonky' 'c': {
-#           'd': 3,
-#           'e': 4
-#            }
-#       }
-#   })
+DictObject({
+  'foo': 1,
+  'bar': 2,
+  'zonk': {
+      'a': 'zonk',
+      'b': 'zonky' 'c': {
+          'd': 3,
+          'e': 4
+            }
+      }
+  })
 dob.convert_dicts(recursive=True)
 dob
 # DictObject({
@@ -152,7 +156,7 @@ dob.todict(False) # Nested DictObjects not converted to dict
 #           'e': 4}
 #       }
 #   }
-
+```
 # All standard python dict functions work
 # --------------------------------------
 
