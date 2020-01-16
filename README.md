@@ -8,6 +8,11 @@ Adds to the python dict by:
 - Recursively change any nested dicts to DictObjects and back again
 - Deepcopy implemented
 
+## Installation
+git clone https://github.com/pdrharris/dictobject.git
+cd dictobject
+python setup.py
+
 ## Import
 from dict_object import DictObject
 
