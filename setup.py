@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='dictobject',
-    version='0.1',
+    version='v1.0',
     description='DictObject - a dictionary that is accessible like an object',
     packages=['dictobject'],
     author='Peter Harris',
