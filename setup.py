@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 setup(
     name='pydictobject',
     version='v1.01',
-    description='DictObject - a dictionary that is accessible like an object',
+    description='pydictobject - a dictionary that is accessible like an object',
     packages=['pydictobject'],
     author='Peter Harris',
     author_email='pdrharris@gmail.com',
