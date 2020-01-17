@@ -9,5 +9,6 @@ setup(
     packages=['dictobject'],
     author='Peter Harris',
     author_email='peter.harris@nielsen.com',
-    url='https://github.com/pdrharris/dictobject'
+    url='https://github.com/pdrharris/dictobject',
+    download_url='https://github.com/pdrharris/dictobject/archive/v1.0.tar.gz'
 )
