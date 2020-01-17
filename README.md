@@ -3,7 +3,7 @@ There are a number of excellent packages that extend the python dictionary to al
 
 This aims to add some additional features to those projects by creating a python dictionary that is accessible (like an object) through attributes and allows default value and warnings
 
-dictobject adds to the python dict by:
+pydictobject adds to the python dict by:
 - Allowing access through the dict.key notation
 - Setting new items with dict.key = value notation
 - Allowing a default value to be set, which is returned if the key is not in the dictionary
@@ -14,14 +14,14 @@ Additionally, deepcopy has been implemented to create new copies of any nested D
 
 ## Installation
 ```
-git clone https://github.com/pdrharris/dictobject.git
-cd dictobject
+git clone https://github.com/pdrharris/pydictobject.git
+cd pydictobject
 python setup.py install
 ```
 
 ## Import
 ```python
-from dictobject import DictObject
+from pydictobject import DictObject
 ```
 ## Initialise
 ```python
@@ -36,8 +36,6 @@ dob = DictObject({'foo': 1, 'bar': 2})
 # Example usage
 ```python
 dob = DictObject({'foo': 1, 'bar': 2})
-# default_to is returned if the key is not found
-# Probably more normal would be to set default_to to None
 
 >>> dob.foo
 1

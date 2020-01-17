@@ -3,12 +3,12 @@
 from setuptools import setup
 
 setup(
-    name='dictobject',
-    version='v1.0',
+    name='pydictobject',
+    version='v1.01',
     description='DictObject - a dictionary that is accessible like an object',
-    packages=['dictobject'],
+    packages=['pydictobject'],
     author='Peter Harris',
-    author_email='peter.harris@nielsen.com',
-    url='https://github.com/pdrharris/dictobject',
-    download_url='https://github.com/pdrharris/dictobject/archive/v1.0.tar.gz'
+    author_email='pdrharris@gmail.com',
+    url='https://github.com/pdrharris/pydictobject',
+    download_url='https://github.com/pdrharris/pydictobject/archive/v1.0.tar.gz'
 )
