@@ -223,5 +223,5 @@ In the example above,
 if dob2 is created with using
 ```python
 >>> dob2 = dob.copy()
-```python
+```
 setting dob.baz.a = 3 would also change dob2.baz.a to 3
