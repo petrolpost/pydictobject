@@ -14,9 +14,7 @@ Additionally, deepcopy has been implemented to create new copies of any nested D
 
 ## Installation
 ```
-git clone https://github.com/pdrharris/pydictobject.git
-cd pydictobject
-python setup.py install
+pip install pydictobject
 ```
 
 ## Import

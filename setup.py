@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='pydictobject',
-    version='v1.01',
+    version='v1.03',
     description='pydictobject - a dictionary that is accessible like an object',
     packages=['pydictobject'],
     author='Peter Harris',
@@ -15,7 +15,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/pdrharris/pydictobject',
-    download_url='https://github.com/pdrharris/pydictobject/archive/1.01.tar.gz',
+    download_url='https://github.com/pdrharris/pydictobject/archive/1.03.tar.gz',
         classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
