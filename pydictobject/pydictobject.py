@@ -250,7 +250,7 @@ class DictObject(dict):
         if self.__default_to__ != DEFAULT_NOT_SET:
             if self.__warn_key_not_found__:
                 warning_text = (
-                    f'Key {key} not found in DictObject. ' f'Returning {str(self.__default_to__)}'
+                    'Key {} not found in DictObject. Returning {}'.format(key, str(self.__default_to__))
                 )
                 warn(warning_text, stacklevel=3)
             return self.__default_to__
@@ -272,7 +272,7 @@ class DictObject(dict):
         dob # __repr__ is called here
         => DictObject{'x', 1: 'y': 2}
         """
-        return f'DictObject{super(DictObject, self).__repr__()}'
+        return 'DictObject{}'.format(super(DictObject, self).__repr__())
 
     def set_default_to(self, value):
         """Sets the value to default to if a field is not found."""
