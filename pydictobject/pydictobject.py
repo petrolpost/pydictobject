@@ -239,6 +239,12 @@ class DictObject(dict):
         except KeyError:
             return self._not_found(key)
 
+    def __getstate__(self):
+        return self.__dict__
+
+    def __setstate__(self, loaded_dict):
+        self.__dict__.update(loaded_dict)
+
     def _not_found(self, key):
         """
         If key is not found:
@@ -356,3 +362,20 @@ class DictObject(dict):
             return_item[key] = deepcopy(value, memo)
 
         return return_item
+
+def test(pickle_file: str = None):
+    input_dict = {'foo': 1, 'bar': 2, 'baz': {'A': 'a', 'B': 'b'}}
+    dob = DictObject(input_dict, default_to=None, warn_key_not_found=True, convert_nested=True)
+    print(dob)
+    if pickle_file is not None:
+        import pickle
+        import os
+        pickle_path = os.path.normpath(pickle_file)
+        with open(pickle_path, 'wb') as p_file:
+            pickle.dump(dob, p_file)
+        with open(pickle_path, 'rb') as p_file:
+            dob = pickle.load(p_file)
+            print('Loaded:\n{}'.format(dob))
+
+if __name__ == '__main__':
+    test('/code/pydictobject.pkl')
