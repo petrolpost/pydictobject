@@ -10,6 +10,7 @@ Adds to the python dict by:
 # Licence: MIT
 
 from copy import deepcopy
+from typing import Iterable
 from warnings import warn
 
 DEFAULT_NOT_SET = '<<Default Value Not Set>>'
@@ -304,6 +305,15 @@ class DictObject(dict):
                         warn_key_not_found=self.__warn_key_not_found__,
                     ),
                 )
+            elif isinstance(value, Iterable) & (not isinstance(value, str)):
+                super(DictObject, self).__setitem__(
+                    key,
+                    [DictObject(
+                        meta,
+                        default_to=self.__default_to__,
+                        warn_key_not_found=self.__warn_key_not_found__,
+                    ) for meta in value]
+                    )
             value = super(DictObject, self).__getitem__(key)
             if recursive and isinstance(value, self.__class__):
                 self[key].convert_dicts(recursive=True)
@@ -364,7 +374,7 @@ class DictObject(dict):
         return return_item
 
 def test(pickle_file: str = None):
-    input_dict = {'foo': 1, 'bar': 2, 'baz': {'A': 'a', 'B': 'b'}}
+    input_dict = {'foo': 1, 'bar': 2, 'baz':[{'A': 'a'}, {'A': 'b'}]}
     dob = DictObject(input_dict, default_to=None, warn_key_not_found=True, convert_nested=True)
     print(dob)
     if pickle_file is not None:
