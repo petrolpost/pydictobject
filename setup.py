@@ -1,3 +1,11 @@
+'''
+Descripttion: 
+version: 
+Author: p.p.
+Date: 2022-01-08 20:49:51
+LastEditors: p.p.
+LastEditTime: 2022-01-08 21:11:09
+'''
 """Setup file for dictobject"""
 
 from setuptools import setup
@@ -7,7 +15,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='pydictobject',
-    version='v1.05',
+    version='v1.05.1',
     description='pydictobject - a dictionary that is accessible like an object',
     packages=['pydictobject'],
     author='Peter Harris',
