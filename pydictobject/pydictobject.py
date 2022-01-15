@@ -15,6 +15,17 @@ from warnings import warn
 
 DEFAULT_NOT_SET = '<<Default Value Not Set>>'
 
+def convertDictObject(o:dict):
+    if isinstance(o, dict):
+        o1 = DictObject(o)
+        for key, item in o.items():
+            if isinstance(item, dict):
+                o1[key] = convertDictObject(item)
+            elif isinstance(item, Iterable) & (not isinstance(item, str)):
+                o1[key] = [convertDictObject(meta) for meta in item ]
+        return o1
+    else:
+        return o
 
 class DictObject(dict):
     """
@@ -374,7 +385,7 @@ class DictObject(dict):
         return return_item
 
 def test(pickle_file: str = None):
-    input_dict = {'foo': 1, 'bar': 2, 'baz':[{'A': 'a'}, {'A': 'b'}]}
+    input_dict = {'foo': 1, 'bar': 2, 'baz':[{'A': []}, {'A': 'b'}]}
     dob = DictObject(input_dict, default_to=None, warn_key_not_found=True, convert_nested=True)
     print(dob)
     if pickle_file is not None:
